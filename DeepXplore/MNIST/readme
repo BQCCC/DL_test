@@ -1,0 +1,34 @@
+关于 TF 和 Keras 
+1、不要用 tf 1.3 ， 因为tf1.3对应的cuda会和自己的电脑显卡版本对不上，会报错，直接使用高一点版本的tf，例如 2.3
+2、keras直接装最新版
+    keras的引用全部改成 tensorflow.keras
+
+环境配置
+conda create --name DeepXplore  python=3.7
+conda install cudatoolkit=10.1 cudnn=7.6.5
+conda install tensorflow-gpu==2.3.0
+conda install Keras
+pip install Pillow
+pip install h5py
+pip install -i  https://pypi.tuna.tsinghua.edu.cn/simple  imageio
+pip install  -i  https://pypi.tuna.tsinghua.edu.cn/simple   opencv-python
+
+
+关于import
+imsave：import imageio 
+        相关代码从 imsave(...) 改成 imageio.imsave(...)
+ to_categorical报错：   from tensorflow.python.keras.utils.np_utils import to_categorical
+
+关于代码
+gen_diff.py
+    parser需要增加--：parser.add_argument('--xxx')
+              需要把数据都设置 default，不然后面会有 NoneType
+    loss 部分，- 单目运算符，需要加括号
+              parser 部分未定义 default 会导致这里报错
+    grads 部分，字典不能切片，要转换为list
+            utils.py
+                    layer_name, index = random.choice(list(model_layer_dict.keys()))
+
+需要开 VPN
+
+关于 Python 2.7 到 3.7 的问题
